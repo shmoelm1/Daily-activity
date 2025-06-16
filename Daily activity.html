@@ -107,21 +107,83 @@
             transform: scale(1.05);
         }
         
-        .controls {
+        .settings-toggle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            margin: 15px auto;
+            display: block;
+        }
+        
+        .settings-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .settings-panel {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 25px;
             border-bottom: 2px solid #e2e8f0;
+            display: none;
+        }
+        
+        .settings-section {
+            margin-bottom: 25px;
+        }
+        
+        .settings-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .children-management {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .child-item {
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
             align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 8px;
+        }
+        
+        .child-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+        }
+        
+        .gender-select {
+            padding: 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
         }
         
         .btn {
-            padding: 12px 20px;
+            padding: 8px 15px;
             border: none;
-            border-radius: 12px;
+            border-radius: 6px;
             font-family: 'Heebo', Arial, sans-serif;
             font-weight: 600;
             cursor: pointer;
@@ -129,19 +191,61 @@
             font-size: 14px;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .btn-success {
+            background: #28a745;
             color: white;
         }
         
-        .btn-success {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+        .btn-danger {
+            background: #dc3545;
             color: white;
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .activities-management {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 8px;
+        }
+        
+        .activity-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+        }
+        
+        .emoji-select {
+            padding: 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-size: 16px;
+        }
+        
+        .add-activity-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
         }
         
         .children-header {
@@ -156,50 +260,16 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 30px;
-            margin-bottom: 15px;
-        }
-        
-        .child-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .child-input {
-            background: transparent;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-family: 'Heebo', Arial, sans-serif;
-            font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            font-weight: 700;
             color: #4a5568;
-            text-align: center;
-            min-width: 120px;
         }
         
-        .child-input:focus {
-            outline: none;
-            background: rgba(255,255,255,0.8);
-            transform: scale(1.05);
-        }
-        
-        .gender-select {
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 8px;
-            font-family: 'Heebo', Arial, sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .add-child-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+        .child-display {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         .activities-container {
@@ -208,26 +278,21 @@
         
         .activity-row {
             border-bottom: 2px solid #f7fafc;
-            padding: 20px 25px;
+            padding: 18px 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: background-color 0.3s ease;
         }
         
         .activity-row:nth-child(even) {
             background-color: #f8f9fa;
         }
         
-        .activity-row:hover {
-            background-color: #e8f5e8;
-        }
-        
         .activity-name {
             font-weight: 700;
             font-size: 1.2em;
             color: #2d3748;
-            min-width: 250px;
+            min-width: 300px;
             text-align: right;
         }
         
@@ -237,43 +302,12 @@
             align-items: center;
         }
         
-        .checkbox-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .child-name-label {
-            font-size: 0.9em;
-            font-weight: 600;
-            color: #667eea;
-        }
-        
         .checkbox {
             width: 35px;
             height: 35px;
             border: 3px solid #cbd5e0;
             border-radius: 8px;
             background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .checkbox:hover {
-            border-color: #48bb78;
-            transform: scale(1.1);
-        }
-        
-        .checkbox.checked {
-            background: #48bb78;
-            border-color: #48bb78;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
         }
         
         .footer {
@@ -320,12 +354,8 @@
                 max-width: none !important;
             }
             
-            .controls, .print-button {
+            .settings-toggle, .settings-panel, .print-button {
                 display: none !important;
-            }
-            
-            .activity-row:hover {
-                background-color: transparent !important;
             }
             
             .header {
@@ -344,10 +374,6 @@
                 background: #f5f5f5 !important;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
-            }
-            
-            .checkbox {
-                border-width: 2px !important;
             }
         }
         
@@ -381,6 +407,11 @@
             .day-input {
                 font-size: 1.3em;
             }
+            
+            .child-item, .activity-item, .add-activity-form {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -391,52 +422,64 @@
         <div class="header">
             <input type="text" class="title-input" id="titleInput" value="לוח פעילות יומי" placeholder="כותרת הלוח">
             <input type="text" class="day-input" id="dayInput" value="יום שני" placeholder="יום">
+            <button class="settings-toggle" onclick="toggleSettings()">⚙️ הגדרות</button>
         </div>
         
-        <div class="controls">
-            <button class="btn btn-primary" onclick="addChild()">👶 הוסף ילד</button>
-            <button class="btn btn-success" onclick="clearAllChecks()">🧹 נקה סימונים</button>
-        </div>
-        
-        <div class="children-header">
-            <div class="children-list" id="childrenList">
-                <div class="child-item">
-                    <input type="text" class="child-input" value="הילה" placeholder="שם הילד">
-                    <select class="gender-select" onchange="updateGender(this)">
-                        <option value="👧">בת</option>
-                        <option value="👦">בן</option>
-                    </select>
-                    <button class="btn" onclick="removeChild(this)" style="background: #ff416c; color: white; padding: 8px 12px;">❌</button>
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-section">
+                <h3 class="settings-title">ניהול ילדים</h3>
+                <div class="children-management">
+                    <div id="childrenManagement">
+                        <!-- ילדים יתווספו כאן -->
+                    </div>
+                    <button class="btn btn-success" onclick="addChildInSettings()">➕ הוסף ילד</button>
                 </div>
-                <div class="child-item">
-                    <input type="text" class="child-input" value="אסתי" placeholder="שם הילד">
-                    <select class="gender-select" onchange="updateGender(this)">
-                        <option value="👧">בת</option>
-                        <option value="👦">בן</option>
-                    </select>
-                    <button class="btn" onclick="removeChild(this)" style="background: #ff416c; color: white; padding: 8px 12px;">❌</button>
-                </div>
-                <div class="child-item">
-                    <input type="text" class="child-input" value="דוד" placeholder="שם הילד">
-                    <select class="gender-select" onchange="updateGender(this)">
-                        <option value="👧">בת</option>
-                        <option value="👦" selected>בן</option>
-                    </select>
-                    <button class="btn" onclick="removeChild(this)" style="background: #ff416c; color: white; padding: 8px 12px;">❌</button>
-                </div>
-                <div class="child-item">
-                    <input type="text" class="child-input" value="ציקי" placeholder="שם הילד">
-                    <select class="gender-select" onchange="updateGender(this)">
-                        <option value="👧">בת</option>
-                        <option value="👦" selected>בן</option>
-                    </select>
-                    <button class="btn" onclick="removeChild(this)" style="background: #ff416c; color: white; padding: 8px 12px;">❌</button>
+            </div>
+            
+            <div class="settings-section">
+                <h3 class="settings-title">ניהול פעילויות</h3>
+                <div class="activities-management">
+                    <div id="activitiesManagement">
+                        <!-- פעילויות יתווספו כאן -->
+                    </div>
+                    <div class="add-activity-form">
+                        <input type="text" id="newActivityInput" placeholder="שם הפעילות החדשה..." class="activity-input">
+                        <select id="newActivityEmoji" class="emoji-select">
+                            <option value="🫗">🫗 (ידיים)</option>
+                            <option value="🙏">🙏 (תפילה)</option>
+                            <option value="📖">📖 (קריאה)</option>
+                            <option value="🥞">🥞 (אוכל)</option>
+                            <option value="📚">📚 (לימוד)</option>
+                            <option value="⏰">⏰ (זמן)</option>
+                            <option value="🎨">🎨 (יצירה)</option>
+                            <option value="🎮">🎮 (משחק)</option>
+                            <option value="🍽️">🍽️ (ארוחה)</option>
+                            <option value="🧸">🧸 (צעצוע)</option>
+                            <option value="🎲">🎲 (קופסה)</option>
+                            <option value="🌳">🌳 (טבע)</option>
+                            <option value="🎉">🎉 (הפתעה)</option>
+                            <option value="🆓">🆓 (חופש)</option>
+                            <option value="🚿">🚿 (מקלחת)</option>
+                            <option value="🍲">🍲 (ערב)</option>
+                            <option value="🦷">🦷 (שיניים)</option>
+                            <option value="🛏️">🛏️ (מיטה)</option>
+                            <option value="🌙">🌙 (לילה)</option>
+                            <option value="⭐">⭐ (כללי)</option>
+                        </select>
+                        <button class="btn btn-success" onclick="addNewActivity()">הוסף</button>
+                    </div>
                 </div>
             </div>
         </div>
         
+        <div class="children-header">
+            <div class="children-list" id="childrenDisplay">
+                <!-- שמות הילדים יוצגו כאן -->
+            </div>
+        </div>
+        
         <div class="activities-container" id="activitiesContainer">
-            <!-- פעילויות יתווספו כאן באמצעות JavaScript -->
+            <!-- פעילויות יוצגו כאן -->
         </div>
         
         <div class="footer">
@@ -445,8 +488,15 @@
     </div>
 
     <script>
-        // רשימת פעילויות
-        const activities = [
+        // נתונים בסיסיים
+        let children = [
+            { name: 'הילה', gender: '👧' },
+            { name: 'אסתי', gender: '👧' },
+            { name: 'דוד', gender: '👦' },
+            { name: 'ציקי', gender: '👦' }
+        ];
+        
+        let activities = [
             'נטילת ידיים 🫗',
             'תפילה 🙏',
             'פרק תהילים 📖',
@@ -469,8 +519,61 @@
             'ספר לפני השינה 🌙'
         ];
 
-        // יצירת הפעילויות
-        function createActivities() {
+        // פתיחה/סגירה של הגדרות
+        function toggleSettings() {
+            const panel = document.getElementById('settingsPanel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // יצירת תצוגת ילדים בהגדרות
+        function renderChildrenSettings() {
+            const container = document.getElementById('childrenManagement');
+            container.innerHTML = '';
+            
+            children.forEach((child, index) => {
+                const childDiv = document.createElement('div');
+                childDiv.className = 'child-item';
+                childDiv.innerHTML = `
+                    <input type="text" class="child-input" value="${child.name}" onchange="updateChildName(${index}, this.value)">
+                    <select class="gender-select" onchange="updateChildGender(${index}, this.value)">
+                        <option value="👧" ${child.gender === '👧' ? 'selected' : ''}>בת</option>
+                        <option value="👦" ${child.gender === '👦' ? 'selected' : ''}>בן</option>
+                    </select>
+                    <button class="btn btn-danger" onclick="removeChild(${index})">🗑️</button>
+                `;
+                container.appendChild(childDiv);
+            });
+        }
+
+        // יצירת תצוגת פעילויות בהגדרות
+        function renderActivitiesSettings() {
+            const container = document.getElementById('activitiesManagement');
+            container.innerHTML = '';
+            
+            activities.forEach((activity, index) => {
+                const activityDiv = document.createElement('div');
+                activityDiv.className = 'activity-item';
+                activityDiv.innerHTML = `
+                    <input type="text" class="activity-input" value="${activity}" onchange="updateActivity(${index}, this.value)">
+                    <button class="btn btn-danger" onclick="removeActivity(${index})">🗑️</button>
+                `;
+                container.appendChild(activityDiv);
+            });
+        }
+
+        // יצירת תצוגת הלוח
+        function renderSchedule() {
+            // תצוגת ילדים בכותרת
+            const childrenDisplay = document.getElementById('childrenDisplay');
+            childrenDisplay.innerHTML = '';
+            children.forEach(child => {
+                const childSpan = document.createElement('div');
+                childSpan.className = 'child-display';
+                childSpan.textContent = child.name + ' ' + child.gender;
+                childrenDisplay.appendChild(childSpan);
+            });
+
+            // תצוגת פעילויות
             const container = document.getElementById('activitiesContainer');
             container.innerHTML = '';
             
@@ -485,26 +588,11 @@
                 const checkboxesContainer = document.createElement('div');
                 checkboxesContainer.className = 'checkboxes-container';
                 
-                // יצירת ריבועי סימון לכל ילד
-                const children = document.querySelectorAll('.child-item');
-                children.forEach((childItem, index) => {
-                    const childInput = childItem.querySelector('.child-input');
-                    const genderSelect = childItem.querySelector('.gender-select');
-                    
-                    const checkboxItem = document.createElement('div');
-                    checkboxItem.className = 'checkbox-item';
-                    
-                    const label = document.createElement('div');
-                    label.className = 'child-name-label';
-                    label.textContent = childInput.value + ' ' + genderSelect.value;
-                    
+                // יצירת ריבועי סימון ריקים לכל ילד
+                children.forEach(() => {
                     const checkbox = document.createElement('div');
                     checkbox.className = 'checkbox';
-                    checkbox.onclick = function() { toggleCheckbox(this); };
-                    
-                    checkboxItem.appendChild(label);
-                    checkboxItem.appendChild(checkbox);
-                    checkboxesContainer.appendChild(checkboxItem);
+                    checkboxesContainer.appendChild(checkbox);
                 });
                 
                 row.appendChild(activityName);
@@ -513,73 +601,67 @@
             });
         }
 
-        // החלפת מצב ריבוע סימון
-        function toggleCheckbox(checkbox) {
-            checkbox.classList.toggle('checked');
-            if (checkbox.classList.contains('checked')) {
-                checkbox.textContent = '✓';
-            } else {
-                checkbox.textContent = '';
-            }
+        // פונקציות ניהול ילדים
+        function addChildInSettings() {
+            children.push({ name: 'ילד חדש', gender: '👦' });
+            renderChildrenSettings();
+            renderSchedule();
         }
 
-        // הוספת ילד חדש
-        function addChild() {
-            const childrenList = document.getElementById('childrenList');
-            
-            const newChild = document.createElement('div');
-            newChild.className = 'child-item';
-            newChild.innerHTML = `
-                <input type="text" class="child-input" value="ילד חדש" placeholder="שם הילד">
-                <select class="gender-select" onchange="updateGender(this)">
-                    <option value="👧">בת</option>
-                    <option value="👦" selected>בן</option>
-                </select>
-                <button class="btn" onclick="removeChild(this)" style="background: #ff416c; color: white; padding: 8px 12px;">❌</button>
-            `;
-            
-            childrenList.appendChild(newChild);
-            createActivities(); // עדכון הפעילויות
-        }
-
-        // הסרת ילד
-        function removeChild(button) {
-            const childItem = button.parentElement;
-            const childrenList = document.getElementById('childrenList');
-            
-            if (childrenList.children.length <= 1) {
+        function removeChild(index) {
+            if (children.length <= 1) {
                 alert('חייב להישאר לפחות ילד אחד!');
                 return;
             }
+            children.splice(index, 1);
+            renderChildrenSettings();
+            renderSchedule();
+        }
+
+        function updateChildName(index, name) {
+            children[index].name = name;
+            renderSchedule();
+        }
+
+        function updateChildGender(index, gender) {
+            children[index].gender = gender;
+            renderSchedule();
+        }
+
+        // פונקציות ניהול פעילויות
+        function addNewActivity() {
+            const nameInput = document.getElementById('newActivityInput');
+            const emojiSelect = document.getElementById('newActivityEmoji');
             
-            childItem.remove();
-            createActivities(); // עדכון הפעילויות
-        }
-
-        // עדכון מין הילד
-        function updateGender(select) {
-            createActivities(); // עדכון הפעילויות עם המין החדש
-        }
-
-        // ניקוי כל הסימונים
-        function clearAllChecks() {
-            const checkboxes = document.querySelectorAll('.checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.classList.remove('checked');
-                checkbox.textContent = '';
-            });
-        }
-
-        // עדכון שמות הילדים כשמשנים
-        document.addEventListener('input', function(e) {
-            if (e.target.classList.contains('child-input')) {
-                createActivities(); // עדכון הפעילויות עם השמות החדשים
+            if (nameInput.value.trim()) {
+                const newActivity = nameInput.value.trim() + ' ' + emojiSelect.value;
+                activities.push(newActivity);
+                nameInput.value = '';
+                renderActivitiesSettings();
+                renderSchedule();
             }
-        });
+        }
+
+        function removeActivity(index) {
+            if (activities.length <= 1) {
+                alert('חייבת להישאר לפחות פעילות אחת!');
+                return;
+            }
+            activities.splice(index, 1);
+            renderActivitiesSettings();
+            renderSchedule();
+        }
+
+        function updateActivity(index, activity) {
+            activities[index] = activity;
+            renderSchedule();
+        }
 
         // אתחול הדף
         document.addEventListener('DOMContentLoaded', function() {
-            createActivities();
+            renderChildrenSettings();
+            renderActivitiesSettings();
+            renderSchedule();
         });
     </script>
 </body>
