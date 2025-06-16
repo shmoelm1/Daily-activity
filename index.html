@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לוח פעילות יומי</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '🌟';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            animation: twinkle 2s infinite;
+        }
+        
+        .header::after {
+            content: '🌈';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .title-input {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #4a5568;
+            background: transparent;
+            border: 3px solid transparent;
+            border-radius: 10px;
+            padding: 10px 15px;
+            text-align: center;
+            font-family: 'Heebo', Arial, sans-serif;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .title-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .day-input {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: 600;
+            background: transparent;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 8px 20px;
+            font-family: 'Heebo', Arial, sans-serif;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .day-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.9);
+            transform: scale(1.05);
+        }
+        
+        .settings-toggle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            margin: 15px auto;
+            display: block;
+        }
+        
+        .settings-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .settings-panel {
+            background: #f8f9fa;
+            padding: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            display: none;
+        }
+        
+        .settings-section {
+            margin-bottom: 25px;
+        }
+        
+        .settings-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .children-management {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .child-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 8px;
+        }
+        
+        .child-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+        }
+        
+        .gender-select {
+            padding: 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .activities-management {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 8px;
+        }
+        
+        .activity-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 600;
+        }
+        
+        .emoji-select {
+            padding: 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-size: 16px;
+        }
+        
+        .add-activity-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+        }
+        
+        /* טבלת הלוח */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        .header-cell {
+            padding: 20px 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #4a5568;
+            border-bottom: 3px solid #e2e8f0;
+            border-left: 2px solid #e2e8f0;
+        }
+        
+        .header-cell:first-child {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            text-align: right;
+            padding-right: 25px;
+            min-width: 250px;
+        }
+        
+        .activity-row {
+            border-bottom: 2px solid #f7fafc;
+        }
+        
+        .activity-row:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .activity-cell {
+            padding: 18px 15px;
+            border-left: 2px solid #e2e8f0;
+        }
+        
+        .activity-name-cell {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #2d3748;
+            text-align: right;
+            padding-right: 25px;
+        }
+        
+        .checkbox-cell {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .checkbox {
+            width: 35px;
+            height: 35px;
+            border: 3px solid #cbd5e0;
+            border-radius: 8px;
+            background: white;
+            display: inline-block;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            text-align: center;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-family: 'Heebo', Arial, sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 16px;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+        
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                max-width: none !important;
+            }
+            
+            .settings-toggle, .settings-panel, .print-button {
+                display: none !important;
+            }
+            
+            .header {
+                background: #f0f0f0 !important;
+            }
+            
+            .table-header {
+                background: #f5f5f5 !important;
+            }
+            
+            .footer {
+                background: #f5f5f5 !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title-input {
+                font-size: 1.8em;
+            }
+            
+            .day-input {
+                font-size: 1.3em;
+            }
+            
+            .child-item, .activity-item, .add-activity-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .schedule-table {
+                font-size: 14px;
+            }
+            
+            .header-cell, .activity-cell {
+                padding: 12px 8px;
+            }
+            
+            .checkbox {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ הדפסה</button>
+    
+    <div class="container">
+        <div class="header">
+            <input type="text" class="title-input" id="titleInput" value="לוח פעילות יומי" placeholder="כותרת הלוח">
+            <input type="text" class="day-input" id="dayInput" value="יום שני" placeholder="יום">
+            <button class="settings-toggle" onclick="toggleSettings()">⚙️ הגדרות</button>
+        </div>
+        
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-section">
+                <h3 class="settings-title">ניהול ילדים</h3>
+                <div class="children-management">
+                    <div id="childrenManagement">
+                        <!-- ילדים יתווספו כאן -->
+                    </div>
+                    <button class="btn btn-success" onclick="addChildInSettings()">➕ הוסף ילד</button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3 class="settings-title">ניהול פעילויות</h3>
+                <div class="activities-management">
+                    <div id="activitiesManagement">
+                        <!-- פעילויות יתווספו כאן -->
+                    </div>
+                    <div class="add-activity-form">
+                        <input type="text" id="newActivityInput" placeholder="שם הפעילות החדשה..." class="activity-input">
+                        <select id="newActivityEmoji" class="emoji-select">
+                            <option value="🫗">🫗 (ידיים)</option>
+                            <option value="🙏">🙏 (תפילה)</option>
+                            <option value="📖">📖 (קריאה)</option>
+                            <option value="🥞">🥞 (אוכל)</option>
+                            <option value="📚">📚 (לימוד)</option>
+                            <option value="⏰">⏰ (זמן)</option>
+                            <option value="🎨">🎨 (יצירה)</option>
+                            <option value="🎮">🎮 (משחק)</option>
+                            <option value="🍽️">🍽️ (ארוחה)</option>
+                            <option value="🧸">🧸 (צעצוע)</option>
+                            <option value="🎲">🎲 (קופסה)</option>
+                            <option value="🌳">🌳 (טבע)</option>
+                            <option value="🎉">🎉 (הפתעה)</option>
+                            <option value="🆓">🆓 (חופש)</option>
+                            <option value="🚿">🚿 (מקלחת)</option>
+                            <option value="🍲">🍲 (ערב)</option>
+                            <option value="🦷">🦷 (שיניים)</option>
+                            <option value="🛏️">🛏️ (מיטה)</option>
+                            <option value="🌙">🌙 (לילה)</option>
+                            <option value="⭐">⭐ (כללי)</option>
+                        </select>
+                        <button class="btn btn-success" onclick="addNewActivity()">הוסף</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <table class="schedule-table" id="scheduleTable">
+            <thead class="table-header">
+                <tr id="headerRow">
+                    <th class="header-cell">פעילות</th>
+                    <!-- כותרות ילדים יתווספו כאן -->
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- שורות פעילויות יתווספו כאן -->
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            <p>יום מלא בהנאה ושמחה! בהצלחה לכולם! 🌈✨</p>
+        </div>
+    </div>
+
+    <script>
+        // נתונים בסיסיים
+        let children = [
+            { name: 'הילה', gender: '👧' },
+            { name: 'אסתי', gender: '👧' },
+            { name: 'דוד', gender: '👦' },
+            { name: 'ציקי', gender: '👦' }
+        ];
+        
+        let activities = [
+            'נטילת ידיים 🫗',
+            'תפילה 🙏',
+            'פרק תהילים 📖',
+            'ארוחת בוקר 🥞',
+            'פעילות בית ספר 📚',
+            'הפסקה (30 דקות) ⏰',
+            'פעילות יצירה 🎨',
+            'משחק דיגיטלי 🎮',
+            'ארוחת צוהריים 🍽️',
+            'משחק עם משי 🧸',
+            'משחק קופסה 🎲',
+            'יציאה לגינה 🌳',
+            'פעילות הפתעה 🎉',
+            'זמן קריאה 📚',
+            'זמן חופשי 🆓',
+            'מקלחת 🚿',
+            'ארוחת ערב 🍲',
+            'צחצוח שיניים 🦷',
+            'קריאת שמע על המיטה 🛏️',
+            'ספר לפני השינה 🌙'
+        ];
+
+        // פתיחה/סגירה של הגדרות
+        function toggleSettings() {
+            const panel = document.getElementById('settingsPanel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // יצירת תצוגת ילדים בהגדרות
+        function renderChildrenSettings() {
+            const container = document.getElementById('childrenManagement');
+            container.innerHTML = '';
+            
+            children.forEach((child, index) => {
+                const childDiv = document.createElement('div');
+                childDiv.className = 'child-item';
+                childDiv.innerHTML = `
+                    <input type="text" class="child-input" value="${child.name}" onchange="updateChildName(${index}, this.value)">
+                    <select class="gender-select" onchange="updateChildGender(${index}, this.value)">
+                        <option value="👧" ${child.gender === '👧' ? 'selected' : ''}>בת</option>
+                        <option value="👦" ${child.gender === '👦' ? 'selected' : ''}>בן</option>
+                    </select>
+                    <button class="btn btn-danger" onclick="removeChild(${index})">🗑️</button>
+                `;
+                container.appendChild(childDiv);
+            });
+        }
+
+        // יצירת תצוגת פעילויות בהגדרות
+        function renderActivitiesSettings() {
+            const container = document.getElementById('activitiesManagement');
+            container.innerHTML = '';
+            
+            activities.forEach((activity, index) => {
+                const activityDiv = document.createElement('div');
+                activityDiv.className = 'activity-item';
+                activityDiv.innerHTML = `
+                    <input type="text" class="activity-input" value="${activity}" onchange="updateActivity(${index}, this.value)">
+                    <button class="btn btn-danger" onclick="removeActivity(${index})">🗑️</button>
+                `;
+                container.appendChild(activityDiv);
+            });
+        }
+
+        // יצירת תצוגת הלוח
+        function renderSchedule() {
+            // יצירת כותרות הטבלה
+            const headerRow = document.getElementById('headerRow');
+            // שמירה על התא הראשון (פעילות) ומחיקת השאר
+            while (headerRow.children.length > 1) {
+                headerRow.removeChild(headerRow.lastChild);
+            }
+            
+            // הוספת כותרות ילדים
+            children.forEach(child => {
+                const th = document.createElement('th');
+                th.className = 'header-cell';
+                th.textContent = child.name + ' ' + child.gender;
+                headerRow.appendChild(th);
+            });
+
+            // יצירת שורות פעילויות
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            
+            activities.forEach(activity => {
+                const row = document.createElement('tr');
+                row.className = 'activity-row';
+                
+                // תא שם הפעילות
+                const activityCell = document.createElement('td');
+                activityCell.className = 'activity-name-cell';
+                activityCell.textContent = activity;
+                row.appendChild(activityCell);
+                
+                // תאי ריבועי סימון לכל ילד
+                children.forEach(() => {
+                    const checkboxCell = document.createElement('td');
+                    checkboxCell.className = 'activity-cell checkbox-cell';
+                    
+                    const checkbox = document.createElement('div');
+                    checkbox.className = 'checkbox';
+                    
+                    checkboxCell.appendChild(checkbox);
+                    row.appendChild(checkboxCell);
+                });
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // פונקציות ניהול ילדים
+        function addChildInSettings() {
+            children.push({ name: 'ילד חדש', gender: '👦' });
+            renderChildrenSettings();
+            renderSchedule();
+        }
+
+        function removeChild(index) {
+            if (children.length <= 1) {
+                alert('חייב להישאר לפחות ילד אחד!');
+                return;
+            }
+            children.splice(index, 1);
+            renderChildrenSettings();
+            renderSchedule();
+        }
+
+        function updateChildName(index, name) {
+            children[index].name = name;
+            renderSchedule();
+        }
+
+        function updateChildGender(index, gender) {
+            children[index].gender = gender;
+            renderSchedule();
+        }
+
+        // פונקציות ניהול פעילויות
+        function addNewActivity() {
+            const nameInput = document.getElementById('newActivityInput');
+            const emojiSelect = document.getElementById('newActivityEmoji');
+            
+            if (nameInput.value.trim()) {
+                const newActivity = nameInput.value.trim() + ' ' + emojiSelect.value;
+                activities.push(newActivity);
+                nameInput.value = '';
+                renderActivitiesSettings();
+                renderSchedule();
+            }
+        }
+
+        function removeActivity(index) {
+            if (activities.length <= 1) {
+                alert('חייבת להישאר לפחות פעילות אחת!');
+                return;
+            }
+            activities.splice(index, 1);
+            renderActivitiesSettings();
+            renderSchedule();
+        }
+
+        function updateActivity(index, activity) {
+            activities[index] = activity;
+            renderSchedule();
+        }
+
+        // אתחול הדף
+        document.addEventListener('DOMContentLoaded', function() {
+            renderChildrenSettings();
+            renderActivitiesSettings();
+            renderSchedule();
+        });
+    </script>
+</body>
+</html>
