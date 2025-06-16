@@ -248,58 +248,59 @@
             border-radius: 8px;
         }
         
-        .children-header {
+        /* טבלת הלוח */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        
+        .table-header {
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 20px;
+        }
+        
+        .header-cell {
+            padding: 20px 15px;
             text-align: center;
-            border-bottom: 3px solid #e2e8f0;
-        }
-        
-        .children-list {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            font-size: 1.2em;
             font-weight: 700;
+            font-size: 1.1em;
             color: #4a5568;
+            border-bottom: 3px solid #e2e8f0;
+            border-left: 2px solid #e2e8f0;
         }
         
-        .child-display {
-            background: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .activities-container {
-            padding: 0;
+        .header-cell:first-child {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            text-align: right;
+            padding-right: 25px;
+            min-width: 250px;
         }
         
         .activity-row {
             border-bottom: 2px solid #f7fafc;
-            padding: 18px 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
         
         .activity-row:nth-child(even) {
             background-color: #f8f9fa;
         }
         
-        .activity-name {
-            font-weight: 700;
-            font-size: 1.2em;
-            color: #2d3748;
-            min-width: 300px;
-            text-align: right;
+        .activity-cell {
+            padding: 18px 15px;
+            border-left: 2px solid #e2e8f0;
         }
         
-        .checkboxes-container {
-            display: flex;
-            gap: 25px;
-            align-items: center;
+        .activity-name-cell {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #2d3748;
+            text-align: right;
+            padding-right: 25px;
+        }
+        
+        .checkbox-cell {
+            text-align: center;
+            vertical-align: middle;
         }
         
         .checkbox {
@@ -308,6 +309,7 @@
             border: 3px solid #cbd5e0;
             border-radius: 8px;
             background: white;
+            display: inline-block;
         }
         
         .footer {
@@ -360,46 +362,18 @@
             
             .header {
                 background: #f0f0f0 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
             }
             
-            .children-header {
+            .table-header {
                 background: #f5f5f5 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
             }
             
             .footer {
                 background: #f5f5f5 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
             }
         }
         
         @media (max-width: 768px) {
-            .activity-row {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-                padding: 15px;
-            }
-            
-            .activity-name {
-                min-width: auto;
-                text-align: center;
-                margin-bottom: 10px;
-            }
-            
-            .checkboxes-container {
-                gap: 15px;
-            }
-            
-            .children-list {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
             .title-input {
                 font-size: 1.8em;
             }
@@ -411,6 +385,19 @@
             .child-item, .activity-item, .add-activity-form {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .schedule-table {
+                font-size: 14px;
+            }
+            
+            .header-cell, .activity-cell {
+                padding: 12px 8px;
+            }
+            
+            .checkbox {
+                width: 30px;
+                height: 30px;
             }
         }
     </style>
@@ -472,15 +459,17 @@
             </div>
         </div>
         
-        <div class="children-header">
-            <div class="children-list" id="childrenDisplay">
-                <!-- שמות הילדים יוצגו כאן -->
-            </div>
-        </div>
-        
-        <div class="activities-container" id="activitiesContainer">
-            <!-- פעילויות יוצגו כאן -->
-        </div>
+        <table class="schedule-table" id="scheduleTable">
+            <thead class="table-header">
+                <tr id="headerRow">
+                    <th class="header-cell">פעילות</th>
+                    <!-- כותרות ילדים יתווספו כאן -->
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- שורות פעילויות יתווספו כאן -->
+            </tbody>
+        </table>
         
         <div class="footer">
             <p>יום מלא בהנאה ושמחה! בהצלחה לכולם! 🌈✨</p>
@@ -563,41 +552,48 @@
 
         // יצירת תצוגת הלוח
         function renderSchedule() {
-            // תצוגת ילדים בכותרת
-            const childrenDisplay = document.getElementById('childrenDisplay');
-            childrenDisplay.innerHTML = '';
+            // יצירת כותרות הטבלה
+            const headerRow = document.getElementById('headerRow');
+            // שמירה על התא הראשון (פעילות) ומחיקת השאר
+            while (headerRow.children.length > 1) {
+                headerRow.removeChild(headerRow.lastChild);
+            }
+            
+            // הוספת כותרות ילדים
             children.forEach(child => {
-                const childSpan = document.createElement('div');
-                childSpan.className = 'child-display';
-                childSpan.textContent = child.name + ' ' + child.gender;
-                childrenDisplay.appendChild(childSpan);
+                const th = document.createElement('th');
+                th.className = 'header-cell';
+                th.textContent = child.name + ' ' + child.gender;
+                headerRow.appendChild(th);
             });
 
-            // תצוגת פעילויות
-            const container = document.getElementById('activitiesContainer');
-            container.innerHTML = '';
+            // יצירת שורות פעילויות
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
             
             activities.forEach(activity => {
-                const row = document.createElement('div');
+                const row = document.createElement('tr');
                 row.className = 'activity-row';
                 
-                const activityName = document.createElement('div');
-                activityName.className = 'activity-name';
-                activityName.textContent = activity;
+                // תא שם הפעילות
+                const activityCell = document.createElement('td');
+                activityCell.className = 'activity-name-cell';
+                activityCell.textContent = activity;
+                row.appendChild(activityCell);
                 
-                const checkboxesContainer = document.createElement('div');
-                checkboxesContainer.className = 'checkboxes-container';
-                
-                // יצירת ריבועי סימון ריקים לכל ילד
+                // תאי ריבועי סימון לכל ילד
                 children.forEach(() => {
+                    const checkboxCell = document.createElement('td');
+                    checkboxCell.className = 'activity-cell checkbox-cell';
+                    
                     const checkbox = document.createElement('div');
                     checkbox.className = 'checkbox';
-                    checkboxesContainer.appendChild(checkbox);
+                    
+                    checkboxCell.appendChild(checkbox);
+                    row.appendChild(checkboxCell);
                 });
                 
-                row.appendChild(activityName);
-                row.appendChild(checkboxesContainer);
-                container.appendChild(row);
+                tableBody.appendChild(row);
             });
         }
 
